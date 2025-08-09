@@ -1,5 +1,6 @@
 import { BudgetForm } from "./components/BudgetForm";
 import { BudgetTracker } from "./components/BudgetTracker";
+import { ExpenseList } from "./components/ExpenseList";
 import ExpenseModal from "./components/ExpenseModal";
 import { useBudget } from "./hooks/useBudget";
 import { useMemo } from "react";
@@ -22,7 +23,8 @@ function App() {
       </div>
 
       {isValidBudget && (
-        <main className="max-w-4xl mx-auto mt-12">
+        <main className="max-w-4xl mx-auto shadow-2xl mt-12 bg-gradient-to-br from-neutral-900 to-neutral-800 p-12 rounded-2xl border border-neutral-700 backdrop-blur-sm">
+          <ExpenseList />
           <ExpenseModal />
         </main>
       )}

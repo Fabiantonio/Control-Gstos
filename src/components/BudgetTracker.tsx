@@ -4,7 +4,7 @@ export const BudgetTracker = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div className="bg-gradient-to-br from-neutral-800 to-neutral-900 p-6 rounded-2xl border border-neutral-700 shadow-lg hover:shadow-xl transition-all duration-300">
-        <h2 className="text-3xl font-bold text-white mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Presupuesto</h2>
+        <h2 className="text-3xl font-bold text-white mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text">Presupuesto</h2>
         <p className="text-5xl font-bold text-green-400">$1000</p>
       </div>
       <div className="bg-gradient-to-br from-neutral-800 to-neutral-900 p-6 rounded-2xl border border-neutral-700 shadow-lg space-y-4">
