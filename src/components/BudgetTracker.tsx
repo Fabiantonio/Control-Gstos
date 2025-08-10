@@ -79,7 +79,7 @@ export const BudgetTracker = () => {
               <div className="mt-8">
                 <button onClick={() => dispatch({type: "reset-expenses"})} className="bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white p-4 rounded-xl w-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-neutral-800">
 
-                  🔄 Reiniciar Presupuesto
+                  Reiniciar Presupuesto
                 </button>
               </div>
             </div>

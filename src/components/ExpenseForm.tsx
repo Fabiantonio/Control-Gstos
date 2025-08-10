@@ -86,80 +86,116 @@ export const ExpenseForm = () => {
   };
 
   return (
-    <form
-      className="bg-gradient-to-br from-neutral-800 to-neutral-900 p-6 rounded-2xl border border-neutral-700 text-white"
-      onSubmit={handleSubmit}
-    >
-      <legend className="text-2xl font-bold border-b-4 border-neutral-600">
-        {state.editingId ? "Actualizar Gasto" : "Nuevo Gasto"}
-      </legend>
+    <div className="max-w-2xl mx-auto">
+      <form
+        className="bg-gradient-to-br from-neutral-800 to-neutral-900 p-8 rounded-2xl border border-neutral-700 text-white shadow-xl"
+        onSubmit={handleSubmit}
+      >
+        {/* Header del formulario */}
+        <div className="mb-8">
+          <legend className="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text">
+            {state.editingId ? "Actualizar Gasto" : "Nuevo Gasto"}
+          </legend>
+          <div className="w-24 h-1 bg-gradient-to-r from-pink-600 to-pink-700 mx-auto rounded-full"></div>
+        </div>
 
-      {error && <ErrorMsg>{error}</ErrorMsg>}
+        {/* Mensaje de error */}
+        {error && (
+          <div className="mb-6">
+            <ErrorMsg>{error}</ErrorMsg>
+          </div>
+        )}
 
-      <div className="flex flex-col">
-        <label htmlFor="expenseName" className="text-lg font-bold">
-          Nombre
-        </label>
-        <input
-          placeholder="Nombre de gasto"
-          type="text"
-          id="expenseName"
-          name="expenseName"
-          className="border border-neutral-600 rounded-md p-2"
-          value={expense.expenseName}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="amount" className="text-lg font-bold">
-          Cantidad
-        </label>
-        <input
-          placeholder="Cantidad del gasto"
-          type="number"
-          id="amount"
-          name="amount"
-          className="border border-neutral-600 rounded-md p-2"
-          value={expense.amount}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="category" className="text-lg font-bold">
-          Categoria
-        </label>
-        <select
-          id="category"
-          name="category"
-          className="border border-neutral-600 rounded-md p-2"
-          value={expense.category}
-          onChange={handleChange}
-        >
-          <option value="">Selecciona una categoria</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-      </div>
+        {/* Grid de campos del formulario */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          
+          {/* Campo Nombre */}
+          <div className="md:col-span-2">
+            <label htmlFor="expenseName" className="block text-lg font-semibold mb-3 text-gray-200">
+              Nombre del Gasto
+            </label>
+            <input
+              placeholder="Ej: Compra de supermercado"
+              type="text"
+              id="expenseName"
+              name="expenseName"
+              className="w-full border border-neutral-600 rounded-xl p-4 bg-neutral-700 text-white placeholder-gray-400 focus:border-pink-500 focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 transition-all duration-300"
+              value={expense.expenseName}
+              onChange={handleChange}
+            />
+          </div>
 
-      <div className="flex flex-col">
-        <label htmlFor="amount" className="text-lg font-bold">
-          Fecha Gasto
-        </label>
-        <DatePicker
-          className="border border-neutral-600 rounded-md p-2 text-black"
-          value={expense.date}
-          onChange={handleChangeDate}
-        />
-      </div>
+          {/* Campo Cantidad */}
+          <div>
+            <label htmlFor="amount" className="block text-lg font-semibold mb-3 text-gray-200">
+              Cantidad
+            </label>
+            <input
+              placeholder="0.00"
+              type="number"
+              id="amount"
+              name="amount"
+              step="0.01"
+              min="0"
+              className="w-full border border-neutral-600 rounded-xl p-4 bg-neutral-700 text-white placeholder-gray-400 focus:border-pink-500 focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 transition-all duration-300"
+              value={expense.amount || ''}
+              onChange={handleChange}
+            />
+          </div>
 
-      <input
-        type="submit"
-        value={state.editingId ? "Actualizar" : "Registrar"}
-        className="bg-pink-600 text-white rounded-md p-2 w-full mt-4"
-      />
-    </form>
+          {/* Campo Categoría */}
+          <div>
+            <label htmlFor="category" className="block text-lg font-semibold mb-3 text-gray-200">
+              Categoría
+            </label>
+            <select
+              id="category"
+              name="category"
+              className="w-full border border-neutral-600 rounded-xl p-4 bg-neutral-700 text-white focus:border-pink-500 focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 transition-all duration-300 cursor-pointer"
+              value={expense.category}
+              onChange={handleChange}
+            >
+              <option value="" className="text-gray-400">Selecciona una categoría</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id} className="text-white bg-neutral-700">
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Campo Fecha */}
+          <div className="md:col-span-2">
+            <label htmlFor="date" className="block text-lg font-semibold mb-3 text-gray-200">
+              Fecha del Gasto
+            </label>
+            <div className="w-full">
+              <DatePicker
+                className="w-full border border-neutral-600 rounded-xl p-4 bg-neutral-700 text-black focus:border-pink-500 focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 transition-all duration-300"
+                value={expense.date}
+                onChange={handleChangeDate}
+                format="dd/MM/yyyy"
+                clearIcon={null}
+                calendarIcon={
+                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                }
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Botón de envío */}
+        <div className="pt-4 border-t border-neutral-600">
+          <button
+            type="submit"
+            className="w-full bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-neutral-800"
+          >
+            {state.editingId ? "Actualizar Gasto" : "Registrar Gasto"}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
