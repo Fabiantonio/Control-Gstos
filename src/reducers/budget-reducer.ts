@@ -10,6 +10,8 @@ export type BudgetActions =
 | { type: "remove-expense", payload: {id: Expense["id"]}}
 | { type: "get-expense-by-id", payload: {id: Expense["id"]}}
 | { type: "update-expense", payload: {expense: Expense}}
+| { type: "reset-expenses" }
+
 
 
 export type BudgetState = {
@@ -102,6 +104,15 @@ export const budgetReducer = (
       editingId: ''
     }
   }
+
+  if (action.type === "reset-expenses") {
+    return {
+      ...state,
+      expenses: [],
+      budget: 0
+    }
+  }
+
 
   return state;
 };

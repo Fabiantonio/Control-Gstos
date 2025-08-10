@@ -81,6 +81,8 @@ export const ExpenseForm = () => {
       category: "",
       date: new Date(),
     });
+    setPreviusAmount(0);
+
   };
 
   return (
