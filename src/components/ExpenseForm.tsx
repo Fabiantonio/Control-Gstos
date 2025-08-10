@@ -2,7 +2,7 @@ import { categories } from "../data/categories";
 import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type DraftExpense, type Value } from "../types";
 import { ErrorMsg } from "./ErrorMsg";
 import { useBudget } from "../hooks/useBudget";
@@ -16,7 +16,18 @@ export const ExpenseForm = () => {
   });
 
   const [error, setError] = useState("");
-  const { dispatch } = useBudget();
+  const { dispatch, state, availableBudget } = useBudget();
+  const [previusAmount, setPreviusAmount] = useState(0);
+
+  useEffect(() => {
+    if (state.editingId) {
+      const editingExpense = state.expenses.filter(
+        (currentExpense) => currentExpense.id === state.editingId
+      )[0];
+      setExpense(editingExpense);
+      setPreviusAmount(editingExpense.amount);
+    }
+  }, [state.editingId]);
 
   const handleChange = (
     e:
@@ -44,12 +55,25 @@ export const ExpenseForm = () => {
       setError("Por favor complete todos los campos");
       return;
     }
-    dispatch({
-      type: "add-expense",
-      payload: {
-        expense,
-      },
-    });
+
+    if ((expense.amount - previusAmount) > availableBudget) {
+      setError("El gasto excede el presupuesto disponible");
+      return;
+    }
+
+    if (state.editingId) {
+      dispatch({
+        type: "update-expense",
+        payload: { expense: { id: state.editingId, ...expense } },
+      });
+    } else {
+      dispatch({
+        type: "add-expense",
+        payload: {
+          expense,
+        },
+      });
+    }
 
     setExpense({
       expenseName: "",
@@ -60,9 +84,12 @@ export const ExpenseForm = () => {
   };
 
   return (
-    <form className="bg-gradient-to-br from-neutral-800 to-neutral-900 p-6 rounded-2xl border border-neutral-700 text-white" onSubmit={handleSubmit}>
+    <form
+      className="bg-gradient-to-br from-neutral-800 to-neutral-900 p-6 rounded-2xl border border-neutral-700 text-white"
+      onSubmit={handleSubmit}
+    >
       <legend className="text-2xl font-bold border-b-4 border-neutral-600">
-        Nuevo Gasto
+        {state.editingId ? "Actualizar Gasto" : "Nuevo Gasto"}
       </legend>
 
       {error && <ErrorMsg>{error}</ErrorMsg>}
@@ -128,7 +155,7 @@ export const ExpenseForm = () => {
 
       <input
         type="submit"
-        value={"Registrar"}
+        value={state.editingId ? "Actualizar" : "Registrar"}
         className="bg-pink-600 text-white rounded-md p-2 w-full mt-4"
       />
     </form>

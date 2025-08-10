@@ -7,7 +7,7 @@ export const ExpenseList = () => {
   const isEmpty = useMemo(() => state.expenses.length === 0, [state.expenses]);
 
   return (
-    <div className="bg-neutral rounded-xl p-4">
+    <div className="bg-neutral rounded-xl">
       {isEmpty ? (
         <div className="flex flex-col items-center justify-center py-12">
           <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mb-4">
@@ -21,7 +21,7 @@ export const ExpenseList = () => {
       ) : (
         <div className="space-y-2">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-white">Gastos Recientes</h3>
+            <h3 className="text-3xl font-bold text-white">Gastos Recientes</h3>
           </div>
           {state.expenses.map((expense) => (
             <ExpenseDetails key={expense.id} expense={expense} />
