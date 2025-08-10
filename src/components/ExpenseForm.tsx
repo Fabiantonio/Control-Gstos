@@ -60,8 +60,8 @@ export const ExpenseForm = () => {
   };
 
   return (
-    <form className=" text-black" onSubmit={handleSubmit}>
-      <legend className="text-2xl font-bold border-b-4 border-pink-600">
+    <form className="bg-gradient-to-br from-neutral-800 to-neutral-900 p-6 rounded-2xl border border-neutral-700 text-white" onSubmit={handleSubmit}>
+      <legend className="text-2xl font-bold border-b-4 border-neutral-600">
         Nuevo Gasto
       </legend>
 
@@ -76,7 +76,7 @@ export const ExpenseForm = () => {
           type="text"
           id="expenseName"
           name="expenseName"
-          className="border border-pink-600 rounded-md p-2"
+          className="border border-neutral-600 rounded-md p-2"
           value={expense.expenseName}
           onChange={handleChange}
         />
@@ -90,7 +90,7 @@ export const ExpenseForm = () => {
           type="number"
           id="amount"
           name="amount"
-          className="border border-pink-600 rounded-md p-2"
+          className="border border-neutral-600 rounded-md p-2"
           value={expense.amount}
           onChange={handleChange}
         />
@@ -102,7 +102,7 @@ export const ExpenseForm = () => {
         <select
           id="category"
           name="category"
-          className="border border-pink-600 rounded-md p-2"
+          className="border border-neutral-600 rounded-md p-2"
           value={expense.category}
           onChange={handleChange}
         >
@@ -120,7 +120,7 @@ export const ExpenseForm = () => {
           Fecha Gasto
         </label>
         <DatePicker
-          className="border border-pink-600 rounded-md p-2"
+          className="border border-neutral-600 rounded-md p-2 text-black"
           value={expense.date}
           onChange={handleChangeDate}
         />
