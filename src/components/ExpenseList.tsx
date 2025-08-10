@@ -5,10 +5,14 @@ import { ExpenseDetails } from "./ExpenseDetails";
 export const ExpenseList = () => {
   const { state } = useBudget();
   const isEmpty = useMemo(() => state.expenses.length === 0, [state.expenses]);
+  const filteredExpense = state.currentCategory ? state.expenses.filter(expense => expense.category === state.currentCategory) : state.expenses;
+
 
   return (
     <div className="bg-neutral rounded-xl">
-      {isEmpty ? (
+      {isEmpty || filteredExpense.length === 0 ? (
+
+
         <div className="flex flex-col items-center justify-center py-12">
           <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mb-4">
             <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -23,7 +27,7 @@ export const ExpenseList = () => {
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-3xl font-bold text-white">Gastos Recientes</h3>
           </div>
-          {state.expenses.map((expense) => (
+          {filteredExpense.map((expense) => (
             <ExpenseDetails key={expense.id} expense={expense} />
           ))}
         </div>
